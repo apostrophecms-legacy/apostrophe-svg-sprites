@@ -31,7 +31,7 @@ module.exports = {
         required: true
       },
       {
-        name: 'map',
+        name: 'file',
         label: 'Map',
         type: 'select',
         choices: mapChoices,
