@@ -5,7 +5,9 @@
 
 This bundle provides a piece subclass that manages and renders SVG sprites referenced from external maps and an accompanying widget for display.
 
-This bundle assumes you are compiling/managing the SVG maps on your own (Gulp, Webpack, manual) and leaving them in a publicly accessible place (`/public` for example).
+This bundle assumes you are compiling/managing the SVG maps on your own (Gulp, Webpack, manual). 
+
+The bundle also assumes *either* that your shipping the files in the project level module `lib/modules/apostrophe-svg-sprites/public` or that your referencing the files on a public webserver (`http://mysite.websites/svg/icons.svg`)
 
 This module is *not* an interface for uploading SVG files or pasting SVG markup.
 
@@ -32,6 +34,11 @@ modules: {
         label: 'Places Icons',
         name: 'places',
         file: 'svg/places-*.svg' // filename uses a wildcard because it is part of a continuous build process
+      },
+      {
+        label: 'Interface Icons',
+        name: 'interface',
+        file: 'http://mysite.websites/svg/icons.svg' // externally requested resource
       }
     ]
   },
@@ -44,14 +51,14 @@ modules: {
 
 ```HTML
   <svg>
-    <use xlink:href="{{ svg.map }}#{{ svg.id }}"></use>
+    <use xlink:href="{{ svg.file }}#{{ svg.id }}"></use>
   </svg>
 ```
 
 ## Example spritemap format
 Important, all `<symbol>` elements need to be peers of one another at the same node depth.
 
-In `/public/svg/places.svg`
+In `lib/modules/apostrophe-svg-sprites/public/svg/places.svg`
 
 ```XML
 <svg xmlns="http://www.w3.org/2000/svg">
